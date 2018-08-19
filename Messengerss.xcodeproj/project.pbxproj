@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E2EB7D4521292A3200C5ED58 /* FriendsController+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EB7D4421292A3200C5ED58 /* FriendsController+Helper.swift */; };
+		E2EB7D492129E1AC00C5ED58 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EB7D482129E1AC00C5ED58 /* ChatLogController.swift */; };
 		E2F6F167212547AB008DA365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6F166212547AA008DA365 /* AppDelegate.swift */; };
 		E2F6F169212547AB008DA365 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6F168212547AB008DA365 /* ViewController.swift */; };
 		E2F6F16C212547AB008DA365 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2F6F16A212547AB008DA365 /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E2EB7D4421292A3200C5ED58 /* FriendsController+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FriendsController+Helper.swift"; sourceTree = "<group>"; };
+		E2EB7D482129E1AC00C5ED58 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		E2F6F163212547AA008DA365 /* Messengerss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messengerss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2F6F166212547AA008DA365 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F6F168212547AB008DA365 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 				E2F6F172212547AB008DA365 /* LaunchScreen.storyboard */,
 				E2F6F175212547AB008DA365 /* Info.plist */,
 				E2F6F16D212547AB008DA365 /* Messengerss.xcdatamodeld */,
+				E2EB7D4421292A3200C5ED58 /* FriendsController+Helper.swift */,
+				E2EB7D482129E1AC00C5ED58 /* ChatLogController.swift */,
 			);
 			path = Messengerss;
 			sourceTree = "<group>";
@@ -142,10 +148,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2EB7D492129E1AC00C5ED58 /* ChatLogController.swift in Sources */,
 				E2F6F169212547AB008DA365 /* ViewController.swift in Sources */,
 				E2F6F16F212547AB008DA365 /* Messengerss.xcdatamodeld in Sources */,
 				E2F6F167212547AB008DA365 /* AppDelegate.swift in Sources */,
 				E2F6F17C212548CC008DA365 /* FriendsCell.swift in Sources */,
+				E2EB7D4521292A3200C5ED58 /* FriendsController+Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

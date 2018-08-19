@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendsCell: UICollectionViewCell {
+class MessageCell: UICollectionViewCell {
     
     var profileImageView: UIImageView? = nil
     var dividerLineView: UIView? = nil
@@ -17,8 +17,30 @@ class FriendsCell: UICollectionViewCell {
     var timeLabel:UILabel? = nil
     var hasReadImageView:UIImageView? = nil
     
+    
+    
+    var message:Message? {
+        didSet {
+            nameLabel?.text = message?.friend?.name
+            if let profileImageName = message?.friend?.profileImageName{
+                profileImageView?.image = UIImage(named: profileImageName)
+                hasReadImageView?.image = UIImage(named: profileImageName)
+            }
+            messageLabel?.text = message?.text
+            
+            if let date = message?.date {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat  = "h mm a"
+                timeLabel?.text = dateFormatter.string(from: date)
+            }
+        }
+    }
+
     override func awakeFromNib() {
         
+       
+        
+       
          profileImageView = {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFill
@@ -72,7 +94,7 @@ class FriendsCell: UICollectionViewCell {
         addSubview(profileImageView!)
         addSubview(dividerLineView!)
         
-        profileImageView?.image = #imageLiteral(resourceName: "mark")
+        profileImageView?.image = UIImage(named: "mark")
         profileImageView?.translatesAutoresizingMaskIntoConstraints = false
         dividerLineView?.translatesAutoresizingMaskIntoConstraints = false
         
@@ -114,8 +136,8 @@ class FriendsCell: UICollectionViewCell {
         hasReadImageView?.image = #imageLiteral(resourceName: "mark")
         hasReadImageView?.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(hasReadImageView!)
-        containerView.addContraintsWithFormat(format: "H:[v0(20)]-12-|", views: hasReadImageView!)
-        containerView.addContraintsWithFormat(format: "V:[v0(25)]|", views: hasReadImageView!)
+        containerView.addContraintsWithFormat(format: "H:[v0(25)]|", views: hasReadImageView!)
+        containerView.addContraintsWithFormat(format: "V:[v0(24)]|", views: hasReadImageView!)
         
     }
     
