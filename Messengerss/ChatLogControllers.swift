@@ -10,12 +10,13 @@ import UIKit
 
 private let reuseIdentifier = "chatCell"
 
-class ChatLogControllers: UICollectionViewController {
+class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var friend: Friend? {
         didSet{
             navigationItem.title = friend?.name
             messages = friend?.messages?.allObjects as? [Message]
+            messages = messages?.sorted(by: {$0.date?.compare($1.date!) == .orderedAscending})
         }
     }
     
@@ -42,14 +43,17 @@ class ChatLogControllers: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ChatLogMessageCell
-        cell.textLabel.text = "qwerty"
         
-        // Configure the cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ChatLogMessageCell
+        
+        cell.messageTextView?.text = messages?[indexPath.item].text
     
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 100.0)
+    }
   
 
 }

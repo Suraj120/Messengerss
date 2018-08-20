@@ -17,7 +17,16 @@ class MessageCell: UICollectionViewCell {
     var timeLabel:UILabel? = nil
     var hasReadImageView:UIImageView? = nil
     
-    
+    override var isHighlighted: Bool {
+        didSet {
+            print(!isHighlighted)
+            //backgroundColor = isHighlighted ? UIColor(red:0, green:134/255, blue:249/255, alpha: 1) : UIColor.white
+            backgroundColor = (isHighlighted) ? UIColor.red : UIColor.white
+            nameLabel?.textColor = isHighlighted ? UIColor.white : UIColor.black
+            messageLabel?.textColor = isHighlighted ? UIColor.white : UIColor.black
+            timeLabel?.textColor = isHighlighted ? UIColor.white : UIColor.black
+        }
+    }
     
     var message:Message? {
         didSet {
@@ -31,14 +40,21 @@ class MessageCell: UICollectionViewCell {
             if let date = message?.date {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat  = "h:mm a"
+                
+                let elapsedTimeInSeconds = NSDate().timeIntervalSince(date)
+                let secondsInDay: TimeInterval = 60*60*24
+                
+                if elapsedTimeInSeconds > 7*secondsInDay {
+                    dateFormatter.dateFormat = "MM/dd/yy"
+                } else if elapsedTimeInSeconds > secondsInDay {
+                    dateFormatter.dateFormat = "EEEE"
+                }
                 timeLabel?.text = dateFormatter.string(from: date)
             }
         }
     }
 
     override func awakeFromNib() {
-        
-       
         
        
          profileImageView = {
@@ -90,6 +106,8 @@ class MessageCell: UICollectionViewCell {
     }
     
     func setupViews() {
+        
+        
         //backgroundColor = UIColor.blue
         addSubview(profileImageView!)
         addSubview(dividerLineView!)

@@ -17,8 +17,7 @@ class FriendsViewController: UICollectionViewController , UICollectionViewDelega
         
         
          navigationController?.navigationItem.title = "Recents"
-        
-        //collectionView?.backgroundColor = UIColor.red
+         //collectionView?.backgroundColor = UIColor.red
         collectionView?.alwaysBounceVertical = true
         setupData()
     }
@@ -51,10 +50,6 @@ class FriendsViewController: UICollectionViewController , UICollectionViewDelega
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "ChatLogControllers") as! ChatLogControllers
         controller.friend = messages?[indexPath.item].friend
-        
-//        let layout = UICollectionViewLayout()
-//        let controller = ChatLogControllers(collectionViewLayout: layout)
-//        controller.friend = messages?[indexPath.item].friend
         
         navigationController?.pushViewController(controller, animated: true)
     }
