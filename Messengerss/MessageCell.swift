@@ -124,10 +124,11 @@ class MessageCell: UICollectionViewCell {
 
         containerView.addSubview(nameLabel!)
         containerView.addContraintsWithFormat(format: "H:|[v0]", views: nameLabel!)
-        containerView.addContraintsWithFormat(format: "V:|[v0][v1(24)]", views: nameLabel!, messageLabel!)
+        containerView.addContraintsWithFormat(format: "V:|[v0]", views: nameLabel!)
         
         containerView.addSubview(messageLabel!)
         containerView.addContraintsWithFormat(format: "H:|[v0]-5-|", views: messageLabel!)
+        containerView.addContraintsWithFormat(format: "V:|[v0(80)]", views: messageLabel!)
         
         containerView.addSubview(timeLabel!)
         containerView.addContraintsWithFormat(format: "H:[v0(80)]-12-|", views: timeLabel!)

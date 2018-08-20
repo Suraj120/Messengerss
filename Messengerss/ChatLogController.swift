@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 
-class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ChatLogController: UICollectionViewController {
     
-    private let cellIdd = "cellIdd"
     
     var friend: Friend? {
         didSet{
@@ -24,8 +23,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = UIColor.white
-        collectionView?.register(ChatLogMessageCell.self, forCellWithReuseIdentifier: cellIdd)
+        collectionView?.backgroundColor = UIColor.red
+        //collectionView?.register(ChatLogMessageCell.self, forCellWithReuseIdentifier: "cellId")
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = messages?.count {
@@ -38,26 +37,26 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdd, for: indexPath) as! ChatLogMessageCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ChatLogMessageCell
         return cell
     }
 }
 
-class ChatLogMessageCell: UICollectionViewCell {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupViews() {
-        backgroundColor = UIColor.red
-    }
-}
+//class ChatLogMessageCell: UICollectionViewCell {
+//
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        setupViews()
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
+//    func setupViews() {
+//        backgroundColor = UIColor.red
+//    }
+//}
 
 
 

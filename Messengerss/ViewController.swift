@@ -47,9 +47,15 @@ class FriendsViewController: UICollectionViewController , UICollectionViewDelega
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let layout = UICollectionViewLayout()
-        let controller = ChatLogController(collectionViewLayout: layout)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "ChatLogControllers") as! ChatLogControllers
         controller.friend = messages?[indexPath.item].friend
+        
+//        let layout = UICollectionViewLayout()
+//        let controller = ChatLogControllers(collectionViewLayout: layout)
+//        controller.friend = messages?[indexPath.item].friend
+        
         navigationController?.pushViewController(controller, animated: true)
     }
 }
