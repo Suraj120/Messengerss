@@ -30,7 +30,7 @@ class MessageCell: UICollectionViewCell {
             
             if let date = message?.date {
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat  = "h mm a"
+                dateFormatter.dateFormat  = "h:mm a"
                 timeLabel?.text = dateFormatter.string(from: date)
             }
         }
