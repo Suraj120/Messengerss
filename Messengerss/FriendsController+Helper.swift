@@ -86,11 +86,18 @@ extension FriendsViewController {
         donald.name = "Donald Trump"
         donald.profileImageName = "trump"
         
-        createMessageWithText(text: "Good Morning", friend: steve, minutes: 3, context: context)
-        createMessageWithText(text: "How r u", friend: steve, minutes: 2, context: context)
-        createMessageWithText(text: "If u don't have an iPhone u don't have an iPhone", friend: steve, minutes: 1, context: context)
-        createMessageWithText(text: "You are fired!!!", friend: donald, minutes: 5, context: context)
+        let gandhi = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
+        gandhi.name = "Mahatma Gandhi"
+        gandhi.profileImageName = "gandhi"
         
+        createMessageWithText(text: "Good Morning", friend: steve, minutes: 3, context: context)
+        createMessageWithText(text: "How are you? Do want to buy an apple device? If u don't have an iPhone u don't have an iPhone.", friend: steve, minutes: 2, context: context)
+        createMessageWithText(text: "Technology is nothing. What's important is that you have a faith in people, that they're basically good and smart, and if you give them tools, they'll do wonderful things with them.", friend: steve, minutes: 1, context: context)
+        
+        createMessageWithText(text: "You are fired!!!", friend: donald, minutes: 5, context: context)
+        createMessageWithText(text: "Love, peace and joy", friend: gandhi, minutes: 60*24, context: context)
+       
+    
         do{
             try context.save()
         }catch {

@@ -19,7 +19,7 @@ class MessageCell: UICollectionViewCell {
     
     override var isHighlighted: Bool {
         didSet {
-            print(!isHighlighted)
+            print(isHighlighted)
             //backgroundColor = isHighlighted ? UIColor(red:0, green:134/255, blue:249/255, alpha: 1) : UIColor.white
             backgroundColor = (isHighlighted) ? UIColor.red : UIColor.white
             nameLabel?.textColor = isHighlighted ? UIColor.white : UIColor.black
