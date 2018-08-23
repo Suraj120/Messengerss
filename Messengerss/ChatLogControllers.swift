@@ -12,6 +12,8 @@ private let reuseIdentifier = "chatCell"
 
 class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    var bottomContraint:NSLayoutConstraint?
+    
     var friend: Friend? {
         didSet{
             navigationItem.title = friend?.name
@@ -21,6 +23,20 @@ class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     var messages: [Message]?
+    
+    let messageInputContainerView: UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor.lightGray
+        return view
+    }()
+    
+    let inputTextField: UITextField = {
+       let textField = UITextField()
+        textField.placeholder = "Enter message..."
+        return textField
+    }()
+    
+    var bottomConstraints: NSLayoutConstraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +45,48 @@ class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFl
         collectionView?.backgroundColor = UIColor.white
         collectionView?.alwaysBounceVertical = true
         
+        view.addSubview(messageInputContainerView)
+        view.addContraintsWithFormat(format: "H:|[v0]|", views: messageInputContainerView)
+        view.addContraintsWithFormat(format: "V:[v0(55)]", views: messageInputContainerView)
+        
+        setupInputComponents()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        bottomConstraints = NSLayoutConstraint(item: messageInputContainerView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+        view.addConstraint(bottomConstraints!)
+        
+    }
+    
+    @objc func handleKeyboardNotification(notification: NSNotification) {
+        
+        if let userInfo = notification.userInfo {
+            let keyboardFrame: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            print("keyboardFrame: \(keyboardFrame)")
+            
+            let isKeyboardShowing = (notification.name == NSNotification.Name.UIKeyboardWillShow)
+            
+            bottomConstraints?.constant = isKeyboardShowing ? -keyboardFrame.height : 0
+            UIView.animate(withDuration: 0, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { (completed) in
+                
+            })
+        }
+        
+    }
+    
+   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        inputTextField.endEditing(true)
+    }
+    
+    private func setupInputComponents() {
+        messageInputContainerView.addSubview(inputTextField)
+        messageInputContainerView.addContraintsWithFormat(format: "H:|-8-[v0]|", views: inputTextField)
+        messageInputContainerView.addContraintsWithFormat(format: "V:|[v0]|", views: inputTextField)
+
     }
 
     // MARK: UICollectionViewDataSource
@@ -49,7 +107,7 @@ class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFl
         
         cell.messageTextView?.text = messages?[indexPath.item].text
         
-        if let messageText = messages?[indexPath.item].text, let profileImageName = messages?[indexPath.item].friend?.profileImageName {
+        if let message = messages?[indexPath.item], let messageText = message.text, let profileImageName = message.friend?.profileImageName {
             
             cell.profileImageView?.image = UIImage(named: profileImageName)
             
@@ -60,9 +118,24 @@ class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFl
             let myAttribute = [ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25.0) ]
             let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: myAttribute, context: nil)
             
-            cell.messageTextView?.frame = CGRect(x: 40.0, y: 0.0, width:estimatedFrame.width, height: estimatedFrame.height + 40 )
-            cell.textBubbleView?.frame = CGRect(x:40.0, y: 0.0, width: estimatedFrame.width, height: estimatedFrame.height + 40 )
             
+            if !message.isSender {
+               
+                cell.messageTextView?.frame = CGRect(x: 40.0, y: 0.0, width:estimatedFrame.width + 25, height: estimatedFrame.height + 30 )
+                cell.textBubbleView?.frame = CGRect(x:40.0, y: 0.0, width: estimatedFrame.width + 25, height: estimatedFrame.height + 10 )
+                cell.profileImageView?.isHidden = false
+                cell.messageTextView?.adjustsFontForContentSizeCategory = true
+                
+            } else {
+                
+                cell.messageTextView?.frame = CGRect(x: view.frame.width - estimatedFrame.width, y: 0.0, width:estimatedFrame.width, height: estimatedFrame.height + 5 )
+                cell.messageTextView?.textColor = UIColor(white: 0.95, alpha: 1)
+                
+                cell.textBubbleView?.frame = CGRect(x:view.frame.width - estimatedFrame.width - 2, y: 0.0, width: estimatedFrame.width, height: estimatedFrame.height + 5 )
+                cell.textBubbleView?.backgroundColor = UIColor(displayP3Red: 0, green: 137/255, blue: 249/255, alpha: 1)
+                cell.profileImageView?.isHidden = true
+                
+            }
             
         }
     
@@ -80,12 +153,15 @@ class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFl
             let myAttribute = [ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25.0) ]
             let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: myAttribute, context: nil)
             
-           return CGSize(width: view.frame.width , height: estimatedFrame.height+50)
+           return CGSize(width: view.frame.width , height: estimatedFrame.height+10)
             
         }
         
         return CGSize(width: view.frame.width, height: 100.0)
     }
   
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
+    }
 
 }

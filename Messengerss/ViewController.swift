@@ -55,3 +55,13 @@ class FriendsViewController: UICollectionViewController , UICollectionViewDelega
     }
 }
 
+
+
+
+
+
+
+
+
+
+

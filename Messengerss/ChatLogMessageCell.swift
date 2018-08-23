@@ -23,8 +23,12 @@ class ChatLogMessageCell: UICollectionViewCell {
         messageTextView = {
             let textView = UITextView()
             textView.font = UIFont.systemFont(ofSize: 15)
+            //textView.textAlignment = .justified
 //            textView.text = "Sample message!!!"
             textView.backgroundColor = UIColor.clear
+            textView.adjustsFontForContentSizeCategory = true
+            textView.autoresizesSubviews = true
+        
             textView.isEditable = false
             textView.isSelectable = false
             textView.isScrollEnabled = false
