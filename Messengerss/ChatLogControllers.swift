@@ -36,6 +36,15 @@ class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFl
         return textField
     }()
     
+    let sendButton: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.setTitle("Send", for: .normal)
+        let titleColor = UIColor(displayP3Red: 0, green: 137/255, blue: 249/255, alpha: 1)
+        button.setTitleColor(titleColor, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        return button
+    }()
+    
     var bottomConstraints: NSLayoutConstraint?
 
     override func viewDidLoad() {
@@ -73,6 +82,11 @@ class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFl
                 self.view.layoutIfNeeded()
             }, completion: { (completed) in
                 
+                if isKeyboardShowing {
+                    let indexPath = IndexPath(item: self.messages!.count - 1, section: 0)
+                    self.collectionView?.scrollToItem(at: indexPath, at: .bottom , animated: true)
+                }
+             
             })
         }
         
@@ -83,10 +97,23 @@ class ChatLogControllers: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     private func setupInputComponents() {
+        
+        let topBorderView = UIView()
+        topBorderView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        
         messageInputContainerView.addSubview(inputTextField)
+        messageInputContainerView.addSubview(sendButton)
+        messageInputContainerView.addSubview(topBorderView)
+        
         messageInputContainerView.addContraintsWithFormat(format: "H:|-8-[v0]|", views: inputTextField)
         messageInputContainerView.addContraintsWithFormat(format: "V:|[v0]|", views: inputTextField)
+        
+        messageInputContainerView.addContraintsWithFormat(format: "H:[v0(60)]|", views: sendButton)
+        messageInputContainerView.addContraintsWithFormat(format: "V:|[v0]|", views: sendButton)
 
+        messageInputContainerView.addContraintsWithFormat(format: "H:|[v0]|", views: topBorderView)
+        messageInputContainerView.addContraintsWithFormat(format: "V:|[v0(0.5)]|", views: topBorderView)
+        
     }
 
     // MARK: UICollectionViewDataSource

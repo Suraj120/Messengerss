@@ -112,10 +112,12 @@ extension FriendsViewController {
         createMessageWithText(text: "How are you? Do want to buy an apple device? If u don't have an iPhone u don't have an iPhone.", friend: steve, minutes: 2, context: context)
         createMessageWithText(text: "Technology is nothing. What's important is that you have a faith in people, that they're basically good and smart, and if you give them tools, they'll do wonderful things with them.", friend: steve, minutes: 1, context: context)
         
+        createMessageWithText(text: "Totally understand that you want a new iPhone X but you will have to wait until September for the new release.Sorry but thats just how Apple likes to do things.", friend: steve, minutes: 0.4, context: context)
+        
         //Response
         
-         createMessageWithText(text: "Yeah... totally lokking to buy an iphone.", friend: steve, minutes: 0, context: context, isSender: true)
-        
+         createMessageWithText(text: "Yeah... totally lokking to buy an iphone.", friend: steve, minutes: 0.5, context: context, isSender: true)
+        createMessageWithText(text: "Absolutely, I'll just use my gigantic iPhone 8 plus until then!!!", friend: steve, minutes: 0, context: context, isSender: true)
         
         
     }
