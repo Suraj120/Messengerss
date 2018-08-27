@@ -179,13 +179,13 @@ class ChatLogControllers: UIViewController, UICollectionViewDelegateFlowLayout, 
         messageInputContainerView.addSubview(topBorderView)
         
         messageInputContainerView.addContraintsWithFormat(format: "H:|-8-[v0]|", views: inputTextField)
-        messageInputContainerView.addContraintsWithFormat(format: "V:|[v0]|", views: inputTextField)
+        messageInputContainerView.addContraintsWithFormat(format: "V:[v0]|", views: inputTextField)
         
         messageInputContainerView.addContraintsWithFormat(format: "H:[v0(60)]|", views: sendButton)
-        messageInputContainerView.addContraintsWithFormat(format: "V:|[v0]|", views: sendButton)
+        messageInputContainerView.addContraintsWithFormat(format: "V:[v0]|", views: sendButton)
 
         messageInputContainerView.addContraintsWithFormat(format: "H:|[v0]|", views: topBorderView)
-        messageInputContainerView.addContraintsWithFormat(format: "V:|[v0(0.5)]|", views: topBorderView)
+        messageInputContainerView.addContraintsWithFormat(format: "V:[v0(0.5)]|", views: topBorderView)
         
     }
 
@@ -276,12 +276,29 @@ class ChatLogControllers: UIViewController, UICollectionViewDelegateFlowLayout, 
         
         if type == .insert {
             
-           // blockoperation.
+            blockOperations.append(BlockOperation(block: {
+                self.collectionView?.insertItems(at: [newIndexPath!])
+                }))
             
             collectionView?.insertItems(at: [newIndexPath!])
             collectionView?.scrollToItem(at: newIndexPath!, at: .bottom, animated: true)
         }
         
+    }
+    
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        
+        collectionView.performBatchUpdates({
+            for operation in self.blockOperations {
+                operation.start()
+            }
+            
+        }) { (completed ) in
+            let lastItem = self.fetchedResultsController.sections![0].numberOfObjects - 1
+            let indexPath = IndexPath(item: lastItem, section: 0)
+            self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+        }
     }
 
     

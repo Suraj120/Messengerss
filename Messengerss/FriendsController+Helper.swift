@@ -69,14 +69,9 @@ extension FriendsViewController {
     
         clearData()
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let mark = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
-        mark.name = "Mark Zuckerberg"
-        mark.profileImageName = "mark"
         
-        let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
-        message.text = "Hello. My name is Mark.Nice to meet u!!!"
-        message.date = Date()
-        message.friend = mark
+        
+        
         
         createSteveMessages(context: context)
         
@@ -130,35 +125,38 @@ extension FriendsViewController {
         message.date = Date().addingTimeInterval(-minutes*60)
         message.friend = friend
         message.isSender = NSNumber(value: isSender) as! Bool
+        
+        friend.lastMessage = message
+        
         return message
         
     }
     
     func loadData() {
      
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        if let friends = fetchFriend(){
-            
-            messages = [Message]()
-            
-            for friend in friends{
-                print(friend.name!)
-               
-                let fetchRequest = NSFetchRequest<Message>(entityName: "Message")
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key:"date", ascending:false)]
-                fetchRequest.predicate = NSPredicate(format: "friend.name = %@", friend.name!)
-                fetchRequest.fetchLimit = 1
-                do {
-                    let fetchedMessages = try (context.fetch(fetchRequest)) as? [Message]
-                    messages?.append(contentsOf: fetchedMessages!)
-                } catch {
-                    print("error in fetching request \(error.localizedDescription)")
-                }
-                
-            }
-            
-            messages = messages?.sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
-        }
+//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//        if let friends = fetchFriend(){
+//
+//            messages = [Message]()
+//
+//            for friend in friends{
+//                print(friend.name!)
+//
+//                let fetchRequest = NSFetchRequest<Message>(entityName: "Message")
+//                fetchRequest.sortDescriptors = [NSSortDescriptor(key:"date", ascending:false)]
+//                fetchRequest.predicate = NSPredicate(format: "friend.name = %@", friend.name!)
+//                fetchRequest.fetchLimit = 1
+//                do {
+//                    let fetchedMessages = try (context.fetch(fetchRequest)) as? [Message]
+//                    messages?.append(contentsOf: fetchedMessages!)
+//                } catch {
+//                    print("error in fetching request \(error.localizedDescription)")
+//                }
+//
+//            }
+//
+//            messages = messages?.sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+//        }
         
     }
     

@@ -43,12 +43,12 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A51-MW-P5l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="242" y="0.0"/>
+            <point key="canvasLocation" x="-530" y="769"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Chat Log Controller-->
         <scene sceneID="ehb-ky-e7h">
             <objects>
-                <collectionViewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="cHb-Xt-YPA" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="ChatLogController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cHb-Xt-YPA" customClass="ChatLogController" customModule="Messengerss" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="6Ol-4m-5dN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="-529" y="0.0"/>
         </scene>
-        <!--Chat Log Controllers-->
+        <!--View Controller-->
         <scene sceneID="Uwn-iW-OcE">
             <objects>
-                <viewController storyboardIdentifier="ChatLogControllers" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7vW-0Z-yIN" customClass="ChatLogControllers" customModule="Messengerss" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatLogControllers" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7vW-0Z-yIN" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hjo-2k-xxY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -142,6 +142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wc9-WQ-13D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="199" y="-80"/>
         </scene>
     </scenes>
 </document>
